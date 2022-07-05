@@ -3,6 +3,7 @@ defprotocol RayTracerChallenge.Tuple do
   def y(value)
   def z(value)
   def w(value)
+  def add(value1, value2)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
@@ -10,4 +11,22 @@ defimpl RayTracerChallenge.Tuple, for: Any do
   def y(value), do: elem(value.data, 1)
   def z(value), do: elem(value.data, 2)
   def w(value), do: value.__struct__.w()
+
+  def add(t1, t2) do
+    x = RayTracerChallenge.Tuple.x(t1) + RayTracerChallenge.Tuple.x(t2)
+    y = RayTracerChallenge.Tuple.y(t1) + RayTracerChallenge.Tuple.y(t2)
+    z = RayTracerChallenge.Tuple.z(t1) + RayTracerChallenge.Tuple.z(t2)
+    w = RayTracerChallenge.Tuple.w(t1) + RayTracerChallenge.Tuple.w(t2)
+
+    case w do
+      1 ->
+        {:ok, RayTracerChallenge.Point.new(x, y, z)}
+
+      0 ->
+        {:ok, RayTracerChallenge.Vector.new(x, y, z)}
+
+      _ ->
+        {:error, :unsupported}
+    end
+  end
 end

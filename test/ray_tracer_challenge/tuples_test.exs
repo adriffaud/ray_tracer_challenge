@@ -34,4 +34,31 @@ defmodule RayTracerChallenge.CoreTest do
     assert Tuple.z(vec) == 3
     assert Tuple.w(vec) == 0
   end
+
+  describe "Adding tuples" do
+    test "a point and a vector returns a point" do
+      pt = Point.new(3, -2, 5)
+      vec = Vector.new(-2, 3, 1)
+      res = Point.new(1, 1, 6)
+
+      assert {:ok, added} = Tuple.add(pt, vec)
+      assert added == res
+    end
+
+    test "vectors returns a vector" do
+      vec1 = Vector.new(3, -2, 5)
+      vec2 = Vector.new(-2, 3, 1)
+      res = Vector.new(1, 1, 6)
+
+      assert {:ok, added} = Tuple.add(vec1, vec2)
+      assert added == res
+    end
+
+    test "points is not supported" do
+      pt1 = Point.new(3, -2, 5)
+      pt2 = Point.new(-2, 3, 1)
+
+      assert {:error, :unsupported} == Tuple.add(pt1, pt2)
+    end
+  end
 end
