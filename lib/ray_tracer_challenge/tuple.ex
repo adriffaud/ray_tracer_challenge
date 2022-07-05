@@ -4,6 +4,7 @@ defprotocol RayTracerChallenge.Tuple do
   def z(value)
   def w(value)
   def add(value1, value2)
+  def sub(value1, value2)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
@@ -17,6 +18,24 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     y = RayTracerChallenge.Tuple.y(t1) + RayTracerChallenge.Tuple.y(t2)
     z = RayTracerChallenge.Tuple.z(t1) + RayTracerChallenge.Tuple.z(t2)
     w = RayTracerChallenge.Tuple.w(t1) + RayTracerChallenge.Tuple.w(t2)
+
+    case w do
+      1 ->
+        {:ok, RayTracerChallenge.Point.new(x, y, z)}
+
+      0 ->
+        {:ok, RayTracerChallenge.Vector.new(x, y, z)}
+
+      _ ->
+        {:error, :unsupported}
+    end
+  end
+
+  def sub(t1, t2) do
+    x = RayTracerChallenge.Tuple.x(t1) - RayTracerChallenge.Tuple.x(t2)
+    y = RayTracerChallenge.Tuple.y(t1) - RayTracerChallenge.Tuple.y(t2)
+    z = RayTracerChallenge.Tuple.z(t1) - RayTracerChallenge.Tuple.z(t2)
+    w = RayTracerChallenge.Tuple.w(t1) - RayTracerChallenge.Tuple.w(t2)
 
     case w do
       1 ->

@@ -39,19 +39,19 @@ defmodule RayTracerChallenge.CoreTest do
     test "a point and a vector returns a point" do
       pt = Point.new(3, -2, 5)
       vec = Vector.new(-2, 3, 1)
-      res = Point.new(1, 1, 6)
+      expected = Point.new(1, 1, 6)
 
       assert {:ok, added} = Tuple.add(pt, vec)
-      assert added == res
+      assert added == expected
     end
 
     test "vectors returns a vector" do
       vec1 = Vector.new(3, -2, 5)
       vec2 = Vector.new(-2, 3, 1)
-      res = Vector.new(1, 1, 6)
+      expected = Vector.new(1, 1, 6)
 
       assert {:ok, added} = Tuple.add(vec1, vec2)
-      assert added == res
+      assert added == expected
     end
 
     test "points is not supported" do
@@ -59,6 +59,42 @@ defmodule RayTracerChallenge.CoreTest do
       pt2 = Point.new(-2, 3, 1)
 
       assert {:error, :unsupported} == Tuple.add(pt1, pt2)
+    end
+  end
+
+  describe "Subtracting tuples" do
+    test "points returns a vector" do
+      pt1 = Point.new(3, 2, 1)
+      pt2 = Point.new(5, 6, 7)
+      expected = Vector.new(-2, -4, -6)
+
+      assert {:ok, subtracted} = Tuple.sub(pt1, pt2)
+      assert subtracted == expected
+    end
+
+    test "vector from a point returns a point" do
+      pt = Point.new(3, 2, 1)
+      vec = Vector.new(5, 6, 7)
+      expected = Point.new(-2, -4, -6)
+
+      assert {:ok, subtracted} = Tuple.sub(pt, vec)
+      assert subtracted == expected
+    end
+
+    test "vectors returns a vector" do
+      vec1 = Vector.new(3, 2, 1)
+      vec2 = Vector.new(5, 6, 7)
+      expected = Vector.new(-2, -4, -6)
+
+      assert {:ok, subtracted} = Tuple.sub(vec1, vec2)
+      assert subtracted == expected
+    end
+
+    test "point from a vector is not supported" do
+      vec = Vector.new(3, 2, 1)
+      pt = Point.new(5, 6, 7)
+
+      assert {:error, :unsupported} = Tuple.sub(vec, pt)
     end
   end
 end
