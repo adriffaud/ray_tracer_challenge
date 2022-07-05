@@ -6,6 +6,8 @@ defprotocol RayTracerChallenge.Tuple do
   def add(value1, value2)
   def sub(value1, value2)
   def negate(value)
+  def multiply(value, scalar)
+  def divide(value, scalar)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
@@ -54,6 +56,22 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     x = -RayTracerChallenge.Tuple.x(t)
     y = -RayTracerChallenge.Tuple.y(t)
     z = -RayTracerChallenge.Tuple.z(t)
+
+    {:ok, t.__struct__.new(x, y, z)}
+  end
+
+  def multiply(t, s) do
+    x = RayTracerChallenge.Tuple.x(t) * s
+    y = RayTracerChallenge.Tuple.y(t) * s
+    z = RayTracerChallenge.Tuple.z(t) * s
+
+    {:ok, t.__struct__.new(x, y, z)}
+  end
+
+  def divide(t, s) do
+    x = RayTracerChallenge.Tuple.x(t) / s
+    y = RayTracerChallenge.Tuple.y(t) / s
+    z = RayTracerChallenge.Tuple.z(t) / s
 
     {:ok, t.__struct__.new(x, y, z)}
   end

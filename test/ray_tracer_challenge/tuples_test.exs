@@ -116,4 +116,46 @@ defmodule RayTracerChallenge.CoreTest do
       assert negated == expected
     end
   end
+
+  describe "Multiplying a" do
+    test "vector by a scalar" do
+      p = Vector.new(1, -2, 3)
+      expected = Vector.new(3.5, -7, 10.5)
+
+      assert {:ok, multiplied} = Tuple.multiply(p, 3.5)
+      assert multiplied == expected
+    end
+
+    test "point by a scalar" do
+      p = Point.new(1, -2, 3)
+      expected = Point.new(3.5, -7, 10.5)
+
+      assert {:ok, multiplied} = Tuple.multiply(p, 3.5)
+      assert multiplied == expected
+    end
+
+    test "vector by a fraction" do
+      p = Vector.new(1, -2, 3)
+      expected = Vector.new(0.5, -1, 1.5)
+
+      assert {:ok, multiplied} = Tuple.multiply(p, 0.5)
+      assert multiplied == expected
+    end
+
+    test "point by a fraction" do
+      p = Point.new(1, -2, 3)
+      expected = Point.new(0.5, -1, 1.5)
+
+      assert {:ok, multiplied} = Tuple.multiply(p, 0.5)
+      assert multiplied == expected
+    end
+  end
+
+  test "Dividing a tuple by a scalar" do
+    p = Point.new(1, -2, 3)
+    expected = Point.new(0.5, -1, 1.5)
+
+    assert {:ok, divided} = Tuple.divide(p, 2)
+    assert divided == expected
+  end
 end
