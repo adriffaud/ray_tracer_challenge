@@ -97,4 +97,23 @@ defmodule RayTracerChallenge.CoreTest do
       assert {:error, :unsupported} = Tuple.sub(vec, pt)
     end
   end
+
+  describe "Negating tuples" do
+    test "by subtracting a vector from the zero vector" do
+      zero = Vector.zero()
+      vec = Vector.new(1, -2, 3)
+      expected = Vector.new(-1, 2, -3)
+
+      assert {:ok, subtracted} = Tuple.sub(zero, vec)
+      assert subtracted == expected
+    end
+
+    test "by using negate/1" do
+      vec = Vector.new(1, -2, 3)
+      expected = Vector.new(-1, 2, -3)
+
+      assert {:ok, negated} = Tuple.negate(vec)
+      assert negated == expected
+    end
+  end
 end

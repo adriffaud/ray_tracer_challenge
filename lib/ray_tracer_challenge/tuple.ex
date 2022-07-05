@@ -5,6 +5,7 @@ defprotocol RayTracerChallenge.Tuple do
   def w(value)
   def add(value1, value2)
   def sub(value1, value2)
+  def negate(value)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
@@ -47,5 +48,13 @@ defimpl RayTracerChallenge.Tuple, for: Any do
       _ ->
         {:error, :unsupported}
     end
+  end
+
+  def negate(t) do
+    x = -RayTracerChallenge.Tuple.x(t)
+    y = -RayTracerChallenge.Tuple.y(t)
+    z = -RayTracerChallenge.Tuple.z(t)
+
+    {:ok, t.__struct__.new(x, y, z)}
   end
 end
