@@ -23,14 +23,9 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     w = RayTracerChallenge.Tuple.w(t1) + RayTracerChallenge.Tuple.w(t2)
 
     case w do
-      1 ->
-        {:ok, RayTracerChallenge.Point.new(x, y, z)}
-
-      0 ->
-        {:ok, RayTracerChallenge.Vector.new(x, y, z)}
-
-      _ ->
-        {:error, :unsupported}
+      1 -> RayTracerChallenge.Point.new(x, y, z)
+      0 -> RayTracerChallenge.Vector.new(x, y, z)
+      _ -> raise(ArgumentError, "Unsupported")
     end
   end
 
@@ -41,14 +36,9 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     w = RayTracerChallenge.Tuple.w(t1) - RayTracerChallenge.Tuple.w(t2)
 
     case w do
-      1 ->
-        {:ok, RayTracerChallenge.Point.new(x, y, z)}
-
-      0 ->
-        {:ok, RayTracerChallenge.Vector.new(x, y, z)}
-
-      _ ->
-        {:error, :unsupported}
+      1 -> RayTracerChallenge.Point.new(x, y, z)
+      0 -> RayTracerChallenge.Vector.new(x, y, z)
+      _ -> raise(ArgumentError, "Unsupported")
     end
   end
 
@@ -57,7 +47,7 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     y = -RayTracerChallenge.Tuple.y(t)
     z = -RayTracerChallenge.Tuple.z(t)
 
-    {:ok, t.__struct__.new(x, y, z)}
+    t.__struct__.new(x, y, z)
   end
 
   def multiply(t, s) do
@@ -65,7 +55,7 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     y = RayTracerChallenge.Tuple.y(t) * s
     z = RayTracerChallenge.Tuple.z(t) * s
 
-    {:ok, t.__struct__.new(x, y, z)}
+    t.__struct__.new(x, y, z)
   end
 
   def divide(t, s) do
@@ -73,6 +63,6 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     y = RayTracerChallenge.Tuple.y(t) / s
     z = RayTracerChallenge.Tuple.z(t) / s
 
-    {:ok, t.__struct__.new(x, y, z)}
+    t.__struct__.new(x, y, z)
   end
 end

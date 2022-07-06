@@ -41,7 +41,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec = Vector.new(-2, 3, 1)
       expected = Point.new(1, 1, 6)
 
-      assert {:ok, added} = Tuple.add(pt, vec)
+      assert added = Tuple.add(pt, vec)
       assert added == expected
     end
 
@@ -50,7 +50,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec2 = Vector.new(-2, 3, 1)
       expected = Vector.new(1, 1, 6)
 
-      assert {:ok, added} = Tuple.add(vec1, vec2)
+      assert added = Tuple.add(vec1, vec2)
       assert added == expected
     end
 
@@ -58,7 +58,7 @@ defmodule RayTracerChallenge.CoreTest do
       pt1 = Point.new(3, -2, 5)
       pt2 = Point.new(-2, 3, 1)
 
-      assert {:error, :unsupported} == Tuple.add(pt1, pt2)
+      assert_raise(ArgumentError, "Unsupported", fn -> Tuple.add(pt1, pt2) end)
     end
   end
 
@@ -68,7 +68,7 @@ defmodule RayTracerChallenge.CoreTest do
       pt2 = Point.new(5, 6, 7)
       expected = Vector.new(-2, -4, -6)
 
-      assert {:ok, subtracted} = Tuple.sub(pt1, pt2)
+      assert subtracted = Tuple.sub(pt1, pt2)
       assert subtracted == expected
     end
 
@@ -77,7 +77,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec = Vector.new(5, 6, 7)
       expected = Point.new(-2, -4, -6)
 
-      assert {:ok, subtracted} = Tuple.sub(pt, vec)
+      assert subtracted = Tuple.sub(pt, vec)
       assert subtracted == expected
     end
 
@@ -86,7 +86,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec2 = Vector.new(5, 6, 7)
       expected = Vector.new(-2, -4, -6)
 
-      assert {:ok, subtracted} = Tuple.sub(vec1, vec2)
+      assert subtracted = Tuple.sub(vec1, vec2)
       assert subtracted == expected
     end
 
@@ -94,7 +94,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec = Vector.new(3, 2, 1)
       pt = Point.new(5, 6, 7)
 
-      assert {:error, :unsupported} = Tuple.sub(vec, pt)
+      assert_raise(ArgumentError, "Unsupported", fn -> Tuple.sub(vec, pt) end)
     end
   end
 
@@ -104,7 +104,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec = Vector.new(1, -2, 3)
       expected = Vector.new(-1, 2, -3)
 
-      assert {:ok, subtracted} = Tuple.sub(zero, vec)
+      assert subtracted = Tuple.sub(zero, vec)
       assert subtracted == expected
     end
 
@@ -112,7 +112,7 @@ defmodule RayTracerChallenge.CoreTest do
       vec = Vector.new(1, -2, 3)
       expected = Vector.new(-1, 2, -3)
 
-      assert {:ok, negated} = Tuple.negate(vec)
+      assert negated = Tuple.negate(vec)
       assert negated == expected
     end
   end
@@ -122,7 +122,7 @@ defmodule RayTracerChallenge.CoreTest do
       p = Vector.new(1, -2, 3)
       expected = Vector.new(3.5, -7, 10.5)
 
-      assert {:ok, multiplied} = Tuple.multiply(p, 3.5)
+      assert multiplied = Tuple.multiply(p, 3.5)
       assert multiplied == expected
     end
 
@@ -130,7 +130,7 @@ defmodule RayTracerChallenge.CoreTest do
       p = Point.new(1, -2, 3)
       expected = Point.new(3.5, -7, 10.5)
 
-      assert {:ok, multiplied} = Tuple.multiply(p, 3.5)
+      assert multiplied = Tuple.multiply(p, 3.5)
       assert multiplied == expected
     end
 
@@ -138,7 +138,7 @@ defmodule RayTracerChallenge.CoreTest do
       p = Vector.new(1, -2, 3)
       expected = Vector.new(0.5, -1, 1.5)
 
-      assert {:ok, multiplied} = Tuple.multiply(p, 0.5)
+      assert multiplied = Tuple.multiply(p, 0.5)
       assert multiplied == expected
     end
 
@@ -146,7 +146,7 @@ defmodule RayTracerChallenge.CoreTest do
       p = Point.new(1, -2, 3)
       expected = Point.new(0.5, -1, 1.5)
 
-      assert {:ok, multiplied} = Tuple.multiply(p, 0.5)
+      assert multiplied = Tuple.multiply(p, 0.5)
       assert multiplied == expected
     end
   end
@@ -155,7 +155,7 @@ defmodule RayTracerChallenge.CoreTest do
     p = Point.new(1, -2, 3)
     expected = Point.new(0.5, -1, 1.5)
 
-    assert {:ok, divided} = Tuple.divide(p, 2)
+    assert divided = Tuple.divide(p, 2)
     assert divided == expected
   end
 end
