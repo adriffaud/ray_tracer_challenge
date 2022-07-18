@@ -1,4 +1,4 @@
-defmodule RayTracerChallenge.CoreTest do
+defmodule RayTracerChallenge.TupleTest do
   @moduledoc false
   use ExUnit.Case, async: true
   alias RayTracerChallenge.{Point, Tuple, Vector}
