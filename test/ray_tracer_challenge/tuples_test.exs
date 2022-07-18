@@ -190,4 +190,27 @@ defmodule RayTracerChallenge.CoreTest do
       assert Tuple.magnitude(v) == :math.sqrt(14)
     end
   end
+
+  describe "Normalization" do
+    test "of a vector(4, 0, 0) gives (1, 0, 0)" do
+      v = Vector.new(4, 0, 0)
+      expected = Vector.new(1, 0, 0)
+
+      assert Tuple.normalize(v) == expected
+    end
+
+    test "of a vector(1, 2, 3)" do
+      v = Vector.new(1, 2, 3)
+      expected = Vector.new(1 / :math.sqrt(14), 2 / :math.sqrt(14), 3 / :math.sqrt(14))
+
+      assert Tuple.normalize(v) == expected
+    end
+
+    test "magnitude" do
+      v = Vector.new(1, 2, 3)
+      norm = Tuple.normalize(v)
+
+      assert Tuple.magnitude(norm) == 1
+    end
+  end
 end

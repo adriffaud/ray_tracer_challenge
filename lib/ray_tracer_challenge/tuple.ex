@@ -9,6 +9,7 @@ defprotocol RayTracerChallenge.Tuple do
   def multiply(value, scalar)
   def divide(value, scalar)
   def magnitude(value)
+  def normalize(value)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
@@ -71,5 +72,10 @@ defimpl RayTracerChallenge.Tuple, for: Any do
 
   def magnitude(t) do
     :math.sqrt(Tuple.x(t) * Tuple.x(t) + Tuple.y(t) * Tuple.y(t) + Tuple.z(t) * Tuple.z(t))
+  end
+
+  def normalize(t) do
+    magnitude = magnitude(t)
+    Vector.new(Tuple.x(t) / magnitude, Tuple.y(t) / magnitude, Tuple.z(t) / magnitude)
   end
 end
