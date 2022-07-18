@@ -220,4 +220,12 @@ defmodule RayTracerChallenge.CoreTest do
 
     assert Tuple.dot(a, b) == 20
   end
+
+  test "Cross product of two vectors" do
+    a = Vector.new(1, 2, 3)
+    b = Vector.new(2, 3, 4)
+
+    assert Tuple.cross(a, b) == Vector.new(-1, 2, -1)
+    assert Tuple.cross(b, a) == Vector.new(1, -2, 1)
+  end
 end
