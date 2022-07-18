@@ -11,57 +11,59 @@ defprotocol RayTracerChallenge.Tuple do
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
+  alias RayTracerChallenge.{Point, Tuple, Vector}
+
   def x(value), do: elem(value.data, 0)
   def y(value), do: elem(value.data, 1)
   def z(value), do: elem(value.data, 2)
   def w(value), do: value.__struct__.w()
 
   def add(t1, t2) do
-    x = RayTracerChallenge.Tuple.x(t1) + RayTracerChallenge.Tuple.x(t2)
-    y = RayTracerChallenge.Tuple.y(t1) + RayTracerChallenge.Tuple.y(t2)
-    z = RayTracerChallenge.Tuple.z(t1) + RayTracerChallenge.Tuple.z(t2)
-    w = RayTracerChallenge.Tuple.w(t1) + RayTracerChallenge.Tuple.w(t2)
+    x = Tuple.x(t1) + Tuple.x(t2)
+    y = Tuple.y(t1) + Tuple.y(t2)
+    z = Tuple.z(t1) + Tuple.z(t2)
+    w = Tuple.w(t1) + Tuple.w(t2)
 
     case w do
-      1 -> RayTracerChallenge.Point.new(x, y, z)
-      0 -> RayTracerChallenge.Vector.new(x, y, z)
+      1 -> Point.new(x, y, z)
+      0 -> Vector.new(x, y, z)
       _ -> raise(ArgumentError, "Unsupported")
     end
   end
 
   def sub(t1, t2) do
-    x = RayTracerChallenge.Tuple.x(t1) - RayTracerChallenge.Tuple.x(t2)
-    y = RayTracerChallenge.Tuple.y(t1) - RayTracerChallenge.Tuple.y(t2)
-    z = RayTracerChallenge.Tuple.z(t1) - RayTracerChallenge.Tuple.z(t2)
-    w = RayTracerChallenge.Tuple.w(t1) - RayTracerChallenge.Tuple.w(t2)
+    x = Tuple.x(t1) - Tuple.x(t2)
+    y = Tuple.y(t1) - Tuple.y(t2)
+    z = Tuple.z(t1) - Tuple.z(t2)
+    w = Tuple.w(t1) - Tuple.w(t2)
 
     case w do
-      1 -> RayTracerChallenge.Point.new(x, y, z)
-      0 -> RayTracerChallenge.Vector.new(x, y, z)
+      1 -> Point.new(x, y, z)
+      0 -> Vector.new(x, y, z)
       _ -> raise(ArgumentError, "Unsupported")
     end
   end
 
   def negate(t) do
-    x = -RayTracerChallenge.Tuple.x(t)
-    y = -RayTracerChallenge.Tuple.y(t)
-    z = -RayTracerChallenge.Tuple.z(t)
+    x = -Tuple.x(t)
+    y = -Tuple.y(t)
+    z = -Tuple.z(t)
 
     t.__struct__.new(x, y, z)
   end
 
   def multiply(t, s) do
-    x = RayTracerChallenge.Tuple.x(t) * s
-    y = RayTracerChallenge.Tuple.y(t) * s
-    z = RayTracerChallenge.Tuple.z(t) * s
+    x = Tuple.x(t) * s
+    y = Tuple.y(t) * s
+    z = Tuple.z(t) * s
 
     t.__struct__.new(x, y, z)
   end
 
   def divide(t, s) do
-    x = RayTracerChallenge.Tuple.x(t) / s
-    y = RayTracerChallenge.Tuple.y(t) / s
-    z = RayTracerChallenge.Tuple.z(t) / s
+    x = Tuple.x(t) / s
+    y = Tuple.y(t) / s
+    z = Tuple.z(t) / s
 
     t.__struct__.new(x, y, z)
   end
