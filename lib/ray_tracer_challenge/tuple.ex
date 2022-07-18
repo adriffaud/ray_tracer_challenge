@@ -8,6 +8,7 @@ defprotocol RayTracerChallenge.Tuple do
   def negate(value)
   def multiply(value, scalar)
   def divide(value, scalar)
+  def magnitude(value)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
@@ -66,5 +67,9 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     z = Tuple.z(t) / s
 
     t.__struct__.new(x, y, z)
+  end
+
+  def magnitude(t) do
+    :math.sqrt(Tuple.x(t) * Tuple.x(t) + Tuple.y(t) * Tuple.y(t) + Tuple.z(t) * Tuple.z(t))
   end
 end

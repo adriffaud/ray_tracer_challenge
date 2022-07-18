@@ -158,4 +158,36 @@ defmodule RayTracerChallenge.CoreTest do
     assert divided = Tuple.divide(p, 2)
     assert divided == expected
   end
+
+  describe "Magnitude" do
+    test "of a vector(1, 0, 0)" do
+      v = Vector.new(1, 0, 0)
+
+      assert Tuple.magnitude(v) == 1
+    end
+
+    test "of a vector(0, 1, 0)" do
+      v = Vector.new(0, 1, 0)
+
+      assert Tuple.magnitude(v) == 1
+    end
+
+    test "of a vector(0, 0, 1)" do
+      v = Vector.new(0, 0, 1)
+
+      assert Tuple.magnitude(v) == 1
+    end
+
+    test "of a vector(1, 2, 3)" do
+      v = Vector.new(1, 2, 3)
+
+      assert Tuple.magnitude(v) == :math.sqrt(14)
+    end
+
+    test "of a vector(-1, -2, -3)" do
+      v = Vector.new(-1, -2, -3)
+
+      assert Tuple.magnitude(v) == :math.sqrt(14)
+    end
+  end
 end
