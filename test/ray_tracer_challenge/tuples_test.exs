@@ -213,4 +213,11 @@ defmodule RayTracerChallenge.CoreTest do
       assert Tuple.magnitude(norm) == 1
     end
   end
+
+  test "Dot product of two tuples" do
+    a = Vector.new(1, 2, 3)
+    b = Vector.new(2, 3, 4)
+
+    assert Tuple.dot(a, b) == 20
+  end
 end
