@@ -1,4 +1,4 @@
-defmodule RayTracerChallenge.ColorsTest do
+defmodule RayTracerChallenge.ColorTest do
   @moduledoc false
   use ExUnit.Case, async: true
   alias RayTracerChallenge.Color
