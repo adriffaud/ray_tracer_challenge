@@ -22,4 +22,10 @@ defmodule RayTracerChallenge.Color do
 
     {r1 - r2, g1 - g2, b1 - b2}
   end
+
+  def multiply(c1, scalar) do
+    {r, g, b} = c1
+
+    {r * scalar, g * scalar, b * scalar}
+  end
 end

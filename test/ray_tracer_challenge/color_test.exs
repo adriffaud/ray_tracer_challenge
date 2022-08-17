@@ -38,4 +38,12 @@ defmodule RayTracerChallenge.ColorTest do
     assert Decimal.equal?(g1, g2)
     assert Decimal.equal?(b1, b2)
   end
+
+  test "Multiplying by a scalar" do
+    c1 = Color.new(0.2, 0.3, 0.4)
+    expected = Color.new(0.4, 0.6, 0.8)
+    result = Color.multiply(c1, 2)
+
+    assert result == expected
+  end
 end
