@@ -15,4 +15,11 @@ defmodule RayTracerChallenge.Color do
 
     {r1 + r2, g1 + g2, b1 + b2}
   end
+
+  def subtract(c1, c2) do
+    {r1, g1, b1} = c1
+    {r2, g2, b2} = c2
+
+    {r1 - r2, g1 - g2, b1 - b2}
+  end
 end
