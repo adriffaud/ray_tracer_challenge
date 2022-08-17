@@ -46,4 +46,22 @@ defmodule RayTracerChallenge.ColorTest do
 
     assert result == expected
   end
+
+  test "Multiplying colors" do
+    c1 = Color.new(1, 0.2, 0.4)
+    c2 = Color.new(0.9, 1, 0.1)
+    expected = Color.new(0.9, 0.2, 0.04)
+    result = Color.multiply(c1, c2)
+
+    r1 = result |> Color.red() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
+    r2 = expected |> Color.red() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
+    g1 = result |> Color.green() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
+    g2 = expected |> Color.green() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
+    b1 = result |> Color.blue() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
+    b2 = expected |> Color.blue() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
+
+    assert Decimal.equal?(r1, r2)
+    assert Decimal.equal?(g1, g2)
+    assert Decimal.equal?(b1, b2)
+  end
 end
