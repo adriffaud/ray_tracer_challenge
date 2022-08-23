@@ -1,5 +1,9 @@
 defmodule RayTracerChallenge.FloatUtils do
-  @moduledoc false
+  @moduledoc """
+  Used for approximate float comparison.
+
+  Based on https://floating-point-gui.de/errors/comparison/
+  """
 
   @max_double <<0b0111111111101111111111111111111111111111111111111111111111111111::64>>
 
