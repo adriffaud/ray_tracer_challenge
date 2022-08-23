@@ -12,10 +12,11 @@ defprotocol RayTracerChallenge.Tuple do
   def normalize(value)
   def dot(value1, value2)
   def cross(value1, value2)
+  def approx_eq(value1, value2)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
-  alias RayTracerChallenge.{Point, Tuple, Vector}
+  alias RayTracerChallenge.{FloatUtils, Point, Tuple, Vector}
 
   def x(value), do: elem(value.data, 0)
   def y(value), do: elem(value.data, 1)
@@ -94,5 +95,16 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     z2 = Tuple.z(t2)
 
     Vector.new(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2)
+  end
+
+  def approx_eq(t1, t2) do
+    x1 = Tuple.x(t1)
+    y1 = Tuple.y(t1)
+    z1 = Tuple.z(t1)
+    x2 = Tuple.x(t2)
+    y2 = Tuple.y(t2)
+    z2 = Tuple.z(t2)
+
+    FloatUtils.approx_eq(x1, x2) and FloatUtils.approx_eq(y1, y2) and FloatUtils.approx_eq(z1, z2)
   end
 end

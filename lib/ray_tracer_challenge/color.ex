@@ -1,6 +1,8 @@
 defmodule RayTracerChallenge.Color do
   @moduledoc false
 
+  alias RayTracerChallenge.FloatUtils
+
   def new(red, green, blue), do: {red, green, blue}
 
   def red({red, _green, _blue}), do: red
@@ -34,5 +36,12 @@ defmodule RayTracerChallenge.Color do
     {r2, g2, b2} = c2
 
     {r1 * r2, g1 * g2, b1 * b2}
+  end
+
+  def approx_eq(c1, c2) do
+    {r1, g1, b1} = c1
+    {r2, g2, b2} = c2
+
+    FloatUtils.approx_eq(r1, r2) and FloatUtils.approx_eq(g1, g2) and FloatUtils.approx_eq(b1, b2)
   end
 end

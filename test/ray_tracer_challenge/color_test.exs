@@ -27,16 +27,7 @@ defmodule RayTracerChallenge.ColorTest do
     expected = Color.new(0.2, 0.5, 0.5)
     result = Color.subtract(c1, c2)
 
-    r1 = result |> Color.red() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    r2 = expected |> Color.red() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    g1 = result |> Color.green() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    g2 = expected |> Color.green() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    b1 = result |> Color.blue() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    b2 = expected |> Color.blue() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-
-    assert Decimal.equal?(r1, r2)
-    assert Decimal.equal?(g1, g2)
-    assert Decimal.equal?(b1, b2)
+    assert Color.approx_eq(expected, result)
   end
 
   test "Multiplying by a scalar" do
@@ -53,15 +44,6 @@ defmodule RayTracerChallenge.ColorTest do
     expected = Color.new(0.9, 0.2, 0.04)
     result = Color.multiply(c1, c2)
 
-    r1 = result |> Color.red() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    r2 = expected |> Color.red() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    g1 = result |> Color.green() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    g2 = expected |> Color.green() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    b1 = result |> Color.blue() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-    b2 = expected |> Color.blue() |> Decimal.from_float() |> Decimal.round(@rounding_decimal)
-
-    assert Decimal.equal?(r1, r2)
-    assert Decimal.equal?(g1, g2)
-    assert Decimal.equal?(b1, b2)
+    assert Color.approx_eq(expected, result)
   end
 end
