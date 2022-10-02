@@ -20,7 +20,8 @@ defmodule RayTracerChallenge.MixProject do
   defp deps do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.1", only: [:test, :dev], runtime: false}
+      {:dialyxir, "~> 1.1", only: [:test, :dev], runtime: false},
+      {:nx, "~> 0.3"}
     ]
   end
 end

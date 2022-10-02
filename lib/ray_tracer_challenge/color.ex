@@ -1,47 +1,27 @@
 defmodule RayTracerChallenge.Color do
   @moduledoc false
 
-  alias RayTracerChallenge.FloatUtils
+  def new(red, green, blue), do: Nx.tensor([red, green, blue])
 
-  def new(red, green, blue), do: {red, green, blue}
+  def red(tensor), do: tensor[0] |> Nx.to_number()
 
-  def red({red, _green, _blue}), do: red
+  def green(tensor), do: tensor[1] |> Nx.to_number()
 
-  def green({_red, green, _blue}), do: green
-
-  def blue({_red, _green, blue}), do: blue
+  def blue(tensor), do: tensor[2] |> Nx.to_number()
 
   def add(c1, c2) do
-    {r1, g1, b1} = c1
-    {r2, g2, b2} = c2
-
-    {r1 + r2, g1 + g2, b1 + b2}
+    Nx.add(c1, c2)
   end
 
   def subtract(c1, c2) do
-    {r1, g1, b1} = c1
-    {r2, g2, b2} = c2
-
-    {r1 - r2, g1 - g2, b1 - b2}
-  end
-
-  def multiply(c1, scalar) when is_number(scalar) do
-    {r, g, b} = c1
-
-    {r * scalar, g * scalar, b * scalar}
+    Nx.subtract(c1, c2)
   end
 
   def multiply(c1, c2) do
-    {r1, g1, b1} = c1
-    {r2, g2, b2} = c2
-
-    {r1 * r2, g1 * g2, b1 * b2}
+    Nx.multiply(c1, c2)
   end
 
   def approx_eq(c1, c2) do
-    {r1, g1, b1} = c1
-    {r2, g2, b2} = c2
-
-    FloatUtils.approx_eq(r1, r2) and FloatUtils.approx_eq(g1, g2) and FloatUtils.approx_eq(b1, b2)
+    Nx.equal(c1, c2)
   end
 end
