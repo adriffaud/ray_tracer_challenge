@@ -5,17 +5,9 @@ defmodule RayTracerChallenge.FloatUtils do
   Based on https://floating-point-gui.de/errors/comparison/
   """
 
-  @max_double <<0b0111111111101111111111111111111111111111111111111111111111111111::64>>
+  alias RayTracerChallenge.{Point, Vector}
 
-  def approx_eq(a, b, epsilon \\ 1.0e-5) do
-    abs_a = abs(a)
-    abs_b = abs(b)
-    diff = abs(a - b)
-
-    cond do
-      a == b -> true
-      a == 0 or b == 0 -> diff < epsilon
-      true -> diff / min(abs_a + abs_b, @max_double) < epsilon
-    end
-  end
+  def approx_eq(%Vector{} = tuple1, %Vector{} = tuple2), do: approx_eq(tuple1.data, tuple2.data)
+  def approx_eq(%Point{} = tuple1, %Point{} = tuple2), do: approx_eq(tuple1.data, tuple2.data)
+  def approx_eq(v1, v2), do: Nx.equal(v1, v2)
 end

@@ -1,16 +1,14 @@
 defmodule RayTracerChallenge.ColorTest do
   @moduledoc false
   use ExUnit.Case, async: true
-  alias RayTracerChallenge.Color
-
-  @rounding_decimal 4
+  alias RayTracerChallenge.{Color, FloatUtils}
 
   test "Colors are (red, green, blue) tuples" do
     c = Color.new(-0.5, 0.4, 1.7)
 
-    assert Color.red(c) |> Color.approx_eq(-0.5)
-    assert Color.green(c) |> Color.approx_eq(0.4)
-    assert Color.blue(c) |> Color.approx_eq(1.7)
+    assert c |> Color.red() |> FloatUtils.approx_eq(-0.5)
+    assert c |> Color.green() |> FloatUtils.approx_eq(0.4)
+    assert c |> Color.blue() |> FloatUtils.approx_eq(1.7)
   end
 
   test "Adding colors" do
@@ -19,7 +17,7 @@ defmodule RayTracerChallenge.ColorTest do
     expected = Color.new(1.6, 0.7, 1.0)
     result = Color.add(c1, c2)
 
-    assert Color.approx_eq(result, expected)
+    assert FloatUtils.approx_eq(result, expected)
   end
 
   test "Subtracting colors" do
@@ -28,7 +26,7 @@ defmodule RayTracerChallenge.ColorTest do
     expected = Color.new(0.2, 0.5, 0.5)
     result = Color.subtract(c1, c2)
 
-    assert Color.approx_eq(expected, result)
+    assert FloatUtils.approx_eq(expected, result)
   end
 
   test "Multiplying by a scalar" do
@@ -45,6 +43,6 @@ defmodule RayTracerChallenge.ColorTest do
     expected = Color.new(0.9, 0.2, 0.04)
     result = Color.multiply(c1, c2)
 
-    assert Color.approx_eq(expected, result)
+    assert FloatUtils.approx_eq(expected, result)
   end
 end

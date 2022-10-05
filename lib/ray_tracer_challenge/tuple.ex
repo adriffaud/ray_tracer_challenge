@@ -12,79 +12,50 @@ defprotocol RayTracerChallenge.Tuple do
   def normalize(value)
   def dot(value1, value2)
   def cross(value1, value2)
-  def approx_eq(value1, value2)
 end
 
 defimpl RayTracerChallenge.Tuple, for: Any do
-  alias RayTracerChallenge.{FloatUtils, Point, Tuple, Vector}
+  alias RayTracerChallenge.{Point, Tuple, Vector}
 
-  def x(value), do: elem(value.data, 0)
-  def y(value), do: elem(value.data, 1)
-  def z(value), do: elem(value.data, 2)
+  def x(value), do: value.data[0] |> Nx.to_number()
+  def y(value), do: value.data[1] |> Nx.to_number()
+  def z(value), do: value.data[2] |> Nx.to_number()
   def w(value), do: value.__struct__.w()
 
   def add(t1, t2) do
-    x = Tuple.x(t1) + Tuple.x(t2)
-    y = Tuple.y(t1) + Tuple.y(t2)
-    z = Tuple.z(t1) + Tuple.z(t2)
+    added = Nx.add(t1.data, t2.data)
     w = Tuple.w(t1) + Tuple.w(t2)
 
     case w do
-      1 -> Point.new(x, y, z)
-      0 -> Vector.new(x, y, z)
-      _ -> raise(ArgumentError, "Unsupported")
+      1 -> Point.new(added)
+      0 -> Vector.new(added)
     end
   end
 
   def sub(t1, t2) do
-    x = Tuple.x(t1) - Tuple.x(t2)
-    y = Tuple.y(t1) - Tuple.y(t2)
-    z = Tuple.z(t1) - Tuple.z(t2)
+    subtracted = Nx.subtract(t1.data, t2.data)
     w = Tuple.w(t1) - Tuple.w(t2)
 
     case w do
-      1 -> Point.new(x, y, z)
-      0 -> Vector.new(x, y, z)
-      _ -> raise(ArgumentError, "Unsupported")
+      1 -> Point.new(subtracted)
+      0 -> Vector.new(subtracted)
     end
   end
 
-  def negate(t) do
-    x = -Tuple.x(t)
-    y = -Tuple.y(t)
-    z = -Tuple.z(t)
+  def negate(t), do: t.data |> Nx.negate() |> t.__struct__.new()
 
-    t.__struct__.new(x, y, z)
-  end
+  def multiply(t, s), do: t.data |> Nx.multiply(s) |> t.__struct__.new()
 
-  def multiply(t, s) do
-    x = Tuple.x(t) * s
-    y = Tuple.y(t) * s
-    z = Tuple.z(t) * s
+  def divide(t, s), do: t.data |> Nx.divide(s) |> t.__struct__.new()
 
-    t.__struct__.new(x, y, z)
-  end
-
-  def divide(t, s) do
-    x = Tuple.x(t) / s
-    y = Tuple.y(t) / s
-    z = Tuple.z(t) / s
-
-    t.__struct__.new(x, y, z)
-  end
-
-  def magnitude(t) do
-    :math.sqrt(Tuple.x(t) * Tuple.x(t) + Tuple.y(t) * Tuple.y(t) + Tuple.z(t) * Tuple.z(t))
-  end
+  def magnitude(t), do: t.data |> Nx.power(2) |> Nx.sum() |> Nx.sqrt() |> Nx.to_number()
 
   def normalize(t) do
     magnitude = magnitude(t)
-    Vector.new(Tuple.x(t) / magnitude, Tuple.y(t) / magnitude, Tuple.z(t) / magnitude)
+    divide(t, magnitude)
   end
 
-  def dot(t1, t2) do
-    Tuple.x(t1) * Tuple.x(t2) + Tuple.y(t1) * Tuple.y(t2) + Tuple.z(t1) * Tuple.z(t2)
-  end
+  def dot(t1, t2), do: Nx.dot(t1.data, t2.data) |> Nx.to_number()
 
   def cross(t1, t2) do
     x1 = Tuple.x(t1)
@@ -95,16 +66,5 @@ defimpl RayTracerChallenge.Tuple, for: Any do
     z2 = Tuple.z(t2)
 
     Vector.new(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2)
-  end
-
-  def approx_eq(t1, t2) do
-    x1 = Tuple.x(t1)
-    y1 = Tuple.y(t1)
-    z1 = Tuple.z(t1)
-    x2 = Tuple.x(t2)
-    y2 = Tuple.y(t2)
-    z2 = Tuple.z(t2)
-
-    FloatUtils.approx_eq(x1, x2) and FloatUtils.approx_eq(y1, y2) and FloatUtils.approx_eq(z1, z2)
   end
 end
