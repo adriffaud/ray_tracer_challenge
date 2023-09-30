@@ -48,7 +48,7 @@ defimpl RayTracerChallenge.Tuple, for: Any do
 
   def divide(t, s), do: t.data |> Nx.divide(s) |> t.__struct__.new()
 
-  def magnitude(t), do: t.data |> Nx.power(2) |> Nx.sum() |> Nx.sqrt() |> Nx.to_number()
+  def magnitude(t), do: t.data |> Nx.pow(2) |> Nx.sum() |> Nx.sqrt() |> Nx.to_number()
 
   def normalize(t) do
     magnitude = magnitude(t)
